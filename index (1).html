@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Keyword + Emoji Generator – Meaning-based</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+
+body{
+
+  font-family:Arial, sans-serif; /* Paragraphs normal */
+
+  background:#d0ebff;  /* light blue */
+
+  color:#07203a;
+
+  padding:20px;
+
+  margin:0;
+
+}
+
+h1{
+
+  font-family:'Italianno', cursive; /* Heading Italic */
+
+  font-weight:bold;
+
+  text-align:center;
+
+  margin-bottom:8px;
+
+  background:#ffa95c; /* orange rectangular box */
+
+  padding:12px;
+
+  border-radius:12px;
+
+  color:white;
+
+  font-size:2.2rem;
+
+}
+
+textarea{
+
+  width:100%;
+
+  height:160px;
+
+  padding:12px;
+
+  border-radius:10px;
+
+  border:1px solid #ccc;
+
+  font-size:16px;
+
+  resize:vertical;
+
+}
+
+button{
+
+  display:block;
+
+  margin:12px auto;
+
+  padding:12px 20px;
+
+  border-radius:10px;
+
+  border:none;
+
+  background:#2563eb;
+
+  color:white;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+}
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+
+  gap:12px;
+
+  margin-top:20px;
+
+}
+
+.card{
+
+  padding:16px;
+
+  border-radius:12px;
+
+  text-align:center;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+  cursor:pointer;
+
+  transform:translateY(15px);
+
+  opacity:0;
+
+  animation:pop 0.5s forwards;
+
+  transition:transform 0.2s,box-shadow 0.2s;
+
+  font-weight:bold;
+
+  color:#07203a;
+
+}
+
+/* Pop-up animation */
+
+@keyframes pop{to{transform:none;opacity:1}}
+
+.card:hover{
+
+  transform:translateY(-5px);
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+
+}
+
+/* Colourful pastel cards for each keyword */
+
+.card:nth-child(1){background:#ffecb3;}
+
+.card:nth-child(2){background:#c8e6c9;}
+
+.card:nth-child(3){background:#f8bbd0;}
+
+.card:nth-child(4){background:#d1c4e9;}
+
+.card:nth-child(5){background:#b2ebf2;}
+
+.card:nth-child(6){background:#fff9c4;}
+
+.card:nth-child(7){background:#dcedc8;}
+
+.card:nth-child(8){background:#f0f4c3;}
+
+.card .emoji{font-size:40px;margin-bottom:8px;}
+
+.card .kw{text-transform:capitalize;}
+
+#detail{
+
+  margin-top:20px;
+
+  padding:14px;
+
+  background:white;
+
+  border-radius:10px;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+  display:none;
+
+}
+
+#detail h3{margin:0 0 10px 0;}
+
+#detail p{margin:6px 0;font-family:Arial,sans-serif;}
+
+.small{
+
+  font-size:13px;
+
+  color:#475569;
+
+  text-align:center;
+
+  margin-top:10px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Keyword + Emoji Generator – Meaning-based</h1>
+
+<textarea id="input" placeholder="Paste any paragraph here..."></textarea>
+
+<button onclick="run()">Generate Keywords & Emojis</button>
+
+<div id="cards" class="grid"></div>
+
+<div id="detail">
+
+<h3 id="dTitle"></h3>
+
+<div id="dSentences"></div>
+
+</div>
+
+<div class="small">
+
+Top 10 unique keywords with meaning-based emojis. Click a keyword card to see sentences. Works for any paragraph.
+
+</div>
+
+<script>
+
+// Stopwords
+
+const STOP = new Set([
+
+"the","is","are","was","were","and","or","to","of","in","on","for","with","as","by","from",
+
+"this","that","these","those","it","a","an","be","have","has","had","i","we","you","they","their",
+
+"then","so","also","very","during","at","if","but","than","such","into","over","under",
+
+"each","many","recently","almost","nearly","some","most","other","which","who","whom","been",
+
+"when","why","about","between","inside","extremely","only","within"
+
+]);
+
+// Meaning-based groups
+
+const MEANING = {
+
+"volcano":["volcano","volcanic","eruption","magma","lava","burst","pyroclastic"],
+
+"pressure":["pressure"],
+
+"gas":["gas","gases","steam","dioxide"],
+
+"ash":["ash","smoke"],
+
+"rock":["rock","rocks","stone","soil","earth","surface"],
+
+"heat":["heat","temperature","fire"],
+
+"flight":["flight"],
+
+"airport":["airport"],
+
+"signal":["signal"],
+
+"control":["control"],
+
+"room":["room"],
+
+"crash":["crash","accident"],
+
+"sensor":["sensor"],
+
+"indicator":["indicator"],
+
+"button":["button"],
+
+"energy":["energy"],
+
+"human":["human","people","members","students"],
+
+"health":["health"],
+
+"death":["death"],
+
+"climate":["climate"],
+
+"forest":["forest","tree"],
+
+"storm":["storm"],
+
+"food":["food","crop"],
+
+"sun":["sun"],
+
+"moon":["moon"]
+
+};
+
+// Emoji mapping by meaning key
+
+const EMOJI_MEANING = {
+
+"volcano":"🌋","pressure":"💨","gas":"🌬️","ash":"🌫️","rock":"🪨","heat":"🔥",
+
+"flight":"✈️","airport":"🛫","signal":"📡","control":"🎛️","room":"🏠","crash":"💥",
+
+"sensor":"🛰️","indicator":"🚨","button":"🔘","energy":"⚡","human":"👥",
+
+"health":"🏥","death":"⚰️","climate":"🌡️","forest":"🌳","storm":"🌩️",
+
+"food":"🍎","sun":"☀️","moon":"🌙"
+
+};
+
+// Return meaning key for a word
+
+function meaningKey(word){
+
+  word = word.toLowerCase();
+
+  for(const key in MEANING){
+
+    if(MEANING[key].some(w=>word.includes(w))) return key;
+
+  }
+
+  return null;
+
+}
+
+function run(){
+
+  document.getElementById("detail").style.display="none";
+
+  document.getElementById("cards").innerHTML="";
+
+  const raw = document.getElementById("input").value || "";
+
+  if(!raw.trim()){ alert("Please paste a paragraph first."); return; }
+
+  const sentences = raw.match(/[^.!?]+[.!?]*/g) || [raw];
+
+  const words = raw.toLowerCase().replace(/[^a-z\s]/g,"").split(/\s+/)
+
+                 .filter(w=>w.length>3 && !STOP.has(w));
+
+  const meaningUsed = new Set();
+
+  const freq = {};
+
+  words.forEach(w=>{
+
+    const key = meaningKey(w);
+
+    if(key && !meaningUsed.has(key)){
+
+      freq[key] = (freq[key]||0)+1;
+
+      meaningUsed.add(key);
+
+    }
+
+  });
+
+  // top 8 keywords
+
+  const top = Object.keys(freq).slice(0,8);
+
+  const cardsDiv = document.getElementById("cards");
+
+  const mapping = {};
+
+  top.forEach((kw,i)=>{
+
+    const groupWords = MEANING[kw];
+
+    mapping[kw] = sentences.filter(s=>{
+
+      const lc = s.toLowerCase();
+
+      return groupWords.some(w=>lc.includes(w));
+
+    });
+
+    const card = document.createElement("div");
+
+    card.className="card";
+
+    card.style.animationDelay=(i*0.06)+"s";
+
+    card.innerHTML = `<div class="emoji">${EMOJI_MEANING[kw]||"🔹"}</div><div class="kw">${kw}</div>`;
+
+    card.onclick = ()=>showDetail(kw,mapping[kw]);
+
+    cardsDiv.appendChild(card);
+
+  });
+
+  if(top.length===0){
+
+    cardsDiv.innerHTML = `<div style="grid-column:1/-1;padding:12px;background:#fff;border-radius:8px;color:#07203a">No meaningful keywords detected.</div>`;
+
+  }
+
+}
+
+function showDetail(kw,sentArr){
+
+  document.getElementById("detail").style.display="block";
+
+  document.getElementById("dTitle").innerText = `Sentences for: ${kw}`;
+
+  const container = document.getElementById("dSentences");
+
+  container.innerHTML="";
+
+  if(!sentArr || sentArr.length===0){
+
+    container.innerHTML="<p>No sentence found containing this keyword.</p>";
+
+    return;
+
+  }
+
+  sentArr.forEach(s=>{
+
+    const re = new RegExp("\\b("+MEANING[kw].join("|")+")\\b","gi");
+
+    const highlighted = s.replace(re,match=>`<strong style="background:#fffbdd;padding:2px 4px;border-radius:4px">${match}</strong>`);
+
+    const p=document.createElement("p"); p.innerHTML=highlighted;
+
+    container.appendChild(p);
+
+  });
+
+}
+
+</script>
+
+</body>
+
+</html>
+    
+  </body>
+  
+</html>
