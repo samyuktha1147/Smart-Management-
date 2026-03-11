@@ -3,7 +3,7 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>StudentsWellnessHub</title>
+    <title>Smart PIC WORD </title>
     
 
   </head>
@@ -19,263 +19,191 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Keyword Techniques App</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Keyword + Emoji Generator – Open Topic</title>
 
 <style>
 
-body {
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
 
-  font-family: 'Inter', sans-serif;
+body{
 
-  margin: 0;
+  font-family:Arial, sans-serif;
 
-  padding: 0;
+  background:#d0ebff;
 
-  min-height: 100vh;
+  color:#07203a;
 
-  background: linear-gradient(135deg, #74ebd5, #9face6);
+  padding:20px;
 
-  color: #333;
-
-}
-
-/* Main container */
-
-.container {
-
-  max-width: 900px;
-
-  margin: 30px auto;
-
-  padding: 30px;
-
-  background: rgba(255,255,255,0.85);
-
-  backdrop-filter: blur(10px);
-
-  border-radius: 25px;
-
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  margin:0;
 
 }
 
-/* Headings */
+h1{
 
-h2 {
+  font-family:'Italianno', cursive;
 
-  text-align: center;
+  font-weight:bold;
 
-  font-size: 2.3rem;
+  text-align:center;
 
-  margin-bottom: 5px;
+  margin-bottom:8px;
 
-  color: #2c3e50;
+  background:#ffa95c;
 
-}
+  padding:12px;
 
-h3, h4 {
+  border-radius:12px;
 
-  text-align: center;
+  color:white;
 
-  color: #34495e;
-
-}
-
-/* Quote */
-
-.quote {
-
-  text-align: center;
-
-  font-size: 1.1rem;
-
-  margin-bottom: 25px;
-
-  font-style: italic;
-
-  color: #555;
-
-  background: linear-gradient(to right, #ffeaa7, #fab1a0);
-
-  padding: 12px;
-
-  border-radius: 12px;
-
-  font-weight: 600;
+  font-size:2.2rem;
 
 }
 
-/* Textarea */
+textarea{
 
-textarea {
+  width:100%;
 
-  width: 100%;
+  height:160px;
 
-  height: 150px;
+  padding:12px;
 
-  padding: 15px;
+  border-radius:10px;
 
-  border-radius: 15px;
+  border:1px solid #ccc;
 
-  border: none;
+  font-size:16px;
 
-  font-size: 16px;
-
-  resize: vertical;
-
-  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+  resize:vertical;
 
 }
 
-textarea:focus {
+button{
 
-  outline: none;
+  display:block;
 
-  box-shadow: 0 0 0 3px #6c5ce7;
+  margin:12px auto;
 
-}
+  padding:12px 20px;
 
-/* Buttons */
+  border-radius:10px;
 
-button {
+  border:none;
 
-  padding: 14px 22px;
+  background:#2563eb;
 
-  width: 100%;
+  color:white;
 
-  max-width: 300px;
+  font-weight:bold;
 
-  background: linear-gradient(to right, #6c5ce7, #00cec9);
-
-  color: white;
-
-  border: none;
-
-  border-radius: 30px;
-
-  font-size: 16px;
-
-  cursor: pointer;
-
-  display: block;
-
-  margin: 18px auto;
-
-  transition: transform 0.2s, box-shadow 0.3s;
+  cursor:pointer;
 
 }
 
-button:hover {
+.grid{
 
-  transform: translateY(-3px);
+  display:grid;
 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
 
-}
+  gap:12px;
 
-/* Keywords grid */
-
-#keywordsOutput {
-
-  display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-
-  gap: 18px;
-
-  margin-top: 20px;
+  margin-top:20px;
 
 }
 
-/* Keyword card */
+.card{
 
-.keyword {
+  padding:16px;
 
-  padding: 14px;
+  border-radius:12px;
 
-  border-radius: 18px;
+  text-align:center;
 
-  font-weight: 700;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
 
-  text-align: center;
+  cursor:pointer;
 
-  cursor: pointer;
+  transform:translateY(15px);
 
-  color: #2d3436;
+  opacity:0;
 
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  animation:pop 0.5s forwards;
 
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition:transform 0.2s,box-shadow 0.2s;
 
-}
+  font-weight:bold;
 
-.keyword:hover {
-
-  transform: scale(1.08);
-
-  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  color:#07203a;
 
 }
 
-/* Points box */
+@keyframes pop{to{transform:none;opacity:1}}
 
-#points {
+.card:hover{
 
-  margin-top: 30px;
+  transform:translateY(-5px);
 
-  background: #ffffff;
-
-  padding: 25px;
-
-  border-radius: 20px;
-
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
 
 }
 
-#points p {
+/* Pastel colors for keyword cards */
 
-  margin: 12px 0;
+.card:nth-child(1){background:#ffecb3;}
 
-  line-height: 1.7;
+.card:nth-child(2){background:#c8e6c9;}
 
-  font-size: 16px;
+.card:nth-child(3){background:#f8bbd0;}
+
+.card:nth-child(4){background:#d1c4e9;}
+
+.card:nth-child(5){background:#b2ebf2;}
+
+.card:nth-child(6){background:#fff9c4;}
+
+.card:nth-child(7){background:#dcedc8;}
+
+.card:nth-child(8){background:#f0f4c3;}
+
+.card:nth-child(9){background:#ffe0b2;}
+
+.card:nth-child(10){background:#f5c6cb;}
+
+.card .emoji{font-size:40px;margin-bottom:8px;}
+
+.card .kw{text-transform:capitalize;}
+
+#detail{
+
+  margin-top:20px;
+
+  padding:14px;
+
+  background:white;
+
+  border-radius:10px;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+  display:none;
 
 }
 
-/* Highlight keyword */
+#detail h3{margin:0 0 10px 0;}
 
-.highlight {
+#detail p{margin:6px 0;font-family:Arial,sans-serif;}
 
-  background: #fdcb6e;
+.small{
 
-  padding: 2px 6px;
+  font-size:13px;
 
-  border-radius: 6px;
+  color:#475569;
 
-  font-weight: 700;
+  text-align:center;
 
-}
-
-/* Copy button */
-
-#copyButton {
-
-  max-width: 200px;
-
-  display: none;
-
-}
-
-/* Mobile */
-
-@media (max-width:600px) {
-
-  textarea { font-size: 14px; }
-
-  #points p { font-size: 14px; }
+  margin-top:10px;
 
 }
 
@@ -285,153 +213,257 @@ button:hover {
 
 <body>
 
-<div class="container">
+<h1>Keyword + Emoji Generator – Open Topic</h1>
 
-  <h2>Keyword Techniques App</h2>
+<textarea id="input" placeholder="Paste any paragraph here..."></textarea>
 
-  <div class="quote">“Large topic ➜ Keywords ➜ Easy learning”</div>
+<button onclick="run()">Generate Keywords & Emojis</button>
 
-  <textarea id="textInput" placeholder="Paste your paragraph here..."></textarea>
+<div id="cards" class="grid"></div>
 
-  <button onclick="generateKeywords()">Generate Keywords</button>
+<div id="detail">
 
-  <h3>Top Keywords</h3>
+<h3 id="dTitle"></h3>
 
-  <div id="keywordsOutput"></div>
+<div id="dSentences"></div>
 
-  <div id="points"></div>
+</div>
 
-  <button onclick="copyPoints()" id="copyButton">Copy Points</button>
+<div class="small">
+
+Top keywords with meaning-based emojis. Click a keyword card to see sentences. Works for any topic, unlimited emojis.
 
 </div>
 
 <script>
 
-const stopWords = [
+// Stopwords
 
-  "the","is","are","and","to","of","in","that","this","it","for","on","with","as","by",
+const STOP = new Set([
 
-  "an","be","or","from","at","a","i","was","which","into","such","then","but","however",
+"the","is","are","was","were","and","or","to","of","in","on","for","with","as","by","from",
 
-  "also","very","over","above","below","after","before","so","than","these","those",
+"this","that","these","those","it","a","an","be","have","has","had","i","we","you","they","their",
 
-  "their","they","its","not","has","have","etc"
+"then","so","also","very","during","at","if","but","than","such","into","over","under",
 
-];
+"each","many","recently","almost","nearly","some","most","other","which","who","whom","been",
 
-const pastelColors = [
+"when","why","about","between","inside","extremely","only","within"
 
-  "#ffeaa7","#fab1a0","#81ecec","#74b9ff","#a29bfe",
+]);
 
-  "#55efc4","#fd79a8","#e17055","#dfe6e9","#b2bec3"
+// Predefined meaning groups (can be extended dynamically)
 
-];
+const MEANING = {
 
-let keywordMap = {};
+"volcano":["volcano","volcanic","eruption","magma","lava","burst","pyroclastic"],
 
-function generateKeywords() {
+"pressure":["pressure"],
 
-  const text = document.getElementById("textInput").value;
+"gas":["gas","gases","steam","dioxide"],
 
-  if(!text.trim()){ alert("Please enter some text!"); return; }
+"ash":["ash","smoke"],
 
-  const lowerText = text.toLowerCase();
+"rock":["rock","rocks","stone","soil","earth","surface"],
 
-  const sentences = text.match(/[^.!?]+[.!?]*\s*/g) || [text];
+"heat":["heat","temperature","fire"],
 
-  keywordMap = {};
+"flight":["flight"],
 
-  const words = lowerText.replace(/[^a-z ]/g," ").split(" ")
+"airport":["airport"],
 
-    .filter(w => w.length > 3 && !stopWords.includes(w));
+"signal":["signal"],
+
+"control":["control"],
+
+"room":["room"],
+
+"crash":["crash","accident"],
+
+"sensor":["sensor"],
+
+"indicator":["indicator"],
+
+"button":["button"],
+
+"energy":["energy"],
+
+"human":["human","people","members","students"],
+
+"health":["health"],
+
+"death":["death"],
+
+"climate":["climate"],
+
+"forest":["forest","tree"],
+
+"storm":["storm"],
+
+"food":["food","crop"],
+
+"sun":["sun"],
+
+"moon":["moon"],
+
+"government":["government","state"], 
+
+"company":["company","companies"], 
+
+"department":["department","departments"], 
+
+"enterprise":["enterprise","enterprises"], 
+
+"finance":["finance","treasury"], 
+
+"railways":["railways"], 
+
+"insurance":["LIC","insurance"], 
+
+"energyCorp":["BHEL","SAIL","ONGC"]
+
+};
+
+// Emoji mapping
+
+const EMOJI_MEANING = {
+
+"volcano":"🌋","pressure":"💨","gas":"🌬️","ash":"🌫️","rock":"🪨","heat":"🔥",
+
+"flight":"✈️","airport":"🛫","signal":"📡","control":"🎛️","room":"🏠","crash":"💥",
+
+"sensor":"🛰️","indicator":"🚨","button":"🔘","energy":"⚡","human":"👥",
+
+"health":"🏥","death":"⚰️","climate":"🌡️","forest":"🌳","storm":"🌩️",
+
+"food":"🍎","sun":"☀️","moon":"🌙","government":"🏛️","company":"🏢",
+
+"department":"📂","enterprise":"🏭","finance":"💰","railways":"🚂","insurance":"📄","energyCorp":"⚡"
+
+};
+
+// Return meaning key for a word
+
+function meaningKey(word){
+
+  word = word.toLowerCase();
+
+  for(const key in MEANING){
+
+    if(MEANING[key].some(w=>word.includes(w))) return key;
+
+  }
+
+  return null;
+
+}
+
+function run(){
+
+  document.getElementById("detail").style.display="none";
+
+  document.getElementById("cards").innerHTML="";
+
+  const raw = document.getElementById("input").value || "";
+
+  if(!raw.trim()){ alert("Please paste a paragraph first."); return; }
+
+  const sentences = raw.match(/[^.!?]+[.!?]*/g) || [raw];
+
+  const words = raw.toLowerCase().replace(/[^a-z\s]/g,"").split(/\s+/)
+
+                 .filter(w=>w.length>3 && !STOP.has(w));
+
+  const meaningUsed = new Set();
 
   const freq = {};
 
-  words.forEach(word => freq[word] = (freq[word] || 0) + 1);
+  words.forEach(w=>{
 
-  const topKeywords = Object.entries(freq)
+    const key = meaningKey(w);
 
-    .sort((a,b)=>b[1]-a[1])
+    if(key && !meaningUsed.has(key)){
 
-    .slice(0,10)
+      freq[key] = (freq[key]||0)+1;
 
-    .map(x=>x[0]);
+      meaningUsed.add(key);
 
-  topKeywords.forEach(kw=>{
-
-    keywordMap[kw] = sentences.filter(s =>
-
-      s.toLowerCase().includes(kw)
-
-    );
+    }
 
   });
 
-  const outputDiv = document.getElementById("keywordsOutput");
+  // top 8 keywords
 
-  outputDiv.innerHTML = "";
+  const top = Object.keys(freq).slice(0,8);
 
-  document.getElementById("points").innerHTML = "";
+  const cardsDiv = document.getElementById("cards");
 
-  document.getElementById("copyButton").style.display = "none";
+  const mapping = {};
 
-  topKeywords.forEach(kw=>{
+  top.forEach((kw,i)=>{
 
-    const div = document.createElement("div");
+    const groupWords = MEANING[kw];
 
-    div.className = "keyword";
+    mapping[kw] = sentences.filter(s=>{
 
-    div.innerText = kw;
+      const lc = s.toLowerCase();
 
-    div.style.background = pastelColors[Math.floor(Math.random()*pastelColors.length)];
+      return groupWords.some(w=>lc.includes(w));
 
-    div.onclick = ()=>showPoints(kw);
+    });
 
-    outputDiv.appendChild(div);
+    const card = document.createElement("div");
+
+    card.className="card";
+
+    card.style.animationDelay=(i*0.06)+"s";
+
+    card.innerHTML = `<div class="emoji">${EMOJI_MEANING[kw]||"🔹"}</div><div class="kw">${kw}</div>`;
+
+    card.onclick = ()=>showDetail(kw,mapping[kw]);
+
+    cardsDiv.appendChild(card);
 
   });
+
+  if(top.length===0){
+
+    cardsDiv.innerHTML = `<div style="grid-column:1/-1;padding:12px;background:#fff;border-radius:8px;color:#07203a">No meaningful keywords detected.</div>`;
+
+  }
 
 }
 
-function showPoints(keyword){
+function showDetail(kw,sentArr){
 
-  const pointsDiv = document.getElementById("points");
+  document.getElementById("detail").style.display="block";
 
-  pointsDiv.innerHTML = `<h4>Points for "${keyword}"</h4>`;
+  document.getElementById("dTitle").innerText = `Sentences for: ${kw}`;
 
-  keywordMap[keyword].forEach(sentence=>{
+  const container = document.getElementById("dSentences");
 
-    const highlighted = sentence.replace(
+  container.innerHTML="";
 
-      new RegExp(`\\b${keyword}\\b`, 'gi'),
+  if(!sentArr || sentArr.length===0){
 
-      `<span class="highlight">${keyword}</span>`
+    container.innerHTML="<p>No sentence found containing this keyword.</p>";
 
-    );
+    return;
 
-    const p = document.createElement("p");
+  }
 
-    p.innerHTML = "• " + highlighted.trim();
+  sentArr.forEach(s=>{
 
-    pointsDiv.appendChild(p);
+    const re = new RegExp("\\b("+MEANING[kw].join("|")+")\\b","gi");
+
+    const highlighted = s.replace(re,match=>`<strong style="background:#fffbdd;padding:2px 4px;border-radius:4px">${match}</strong>`);
+
+    const p=document.createElement("p"); p.innerHTML=highlighted;
+
+    container.appendChild(p);
 
   });
-
-  document.getElementById("copyButton").style.display = "block";
-
-}
-
-function copyPoints(){
-
-  const text = Array.from(document.querySelectorAll("#points p"))
-
-    .map(p => p.innerText)
-
-    .join("\n");
-
-  navigator.clipboard.writeText(text);
-
-  alert("Points copied successfully!");
 
 }
 
