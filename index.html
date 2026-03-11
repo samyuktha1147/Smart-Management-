@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>StudentsWellnessHub</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Keyword Techniques App</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+
+  font-family: 'Inter', sans-serif;
+
+  margin: 0;
+
+  padding: 0;
+
+  min-height: 100vh;
+
+  background: linear-gradient(135deg, #74ebd5, #9face6);
+
+  color: #333;
+
+}
+
+/* Main container */
+
+.container {
+
+  max-width: 900px;
+
+  margin: 30px auto;
+
+  padding: 30px;
+
+  background: rgba(255,255,255,0.85);
+
+  backdrop-filter: blur(10px);
+
+  border-radius: 25px;
+
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+
+}
+
+/* Headings */
+
+h2 {
+
+  text-align: center;
+
+  font-size: 2.3rem;
+
+  margin-bottom: 5px;
+
+  color: #2c3e50;
+
+}
+
+h3, h4 {
+
+  text-align: center;
+
+  color: #34495e;
+
+}
+
+/* Quote */
+
+.quote {
+
+  text-align: center;
+
+  font-size: 1.1rem;
+
+  margin-bottom: 25px;
+
+  font-style: italic;
+
+  color: #555;
+
+  background: linear-gradient(to right, #ffeaa7, #fab1a0);
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+
+}
+
+/* Textarea */
+
+textarea {
+
+  width: 100%;
+
+  height: 150px;
+
+  padding: 15px;
+
+  border-radius: 15px;
+
+  border: none;
+
+  font-size: 16px;
+
+  resize: vertical;
+
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+
+}
+
+textarea:focus {
+
+  outline: none;
+
+  box-shadow: 0 0 0 3px #6c5ce7;
+
+}
+
+/* Buttons */
+
+button {
+
+  padding: 14px 22px;
+
+  width: 100%;
+
+  max-width: 300px;
+
+  background: linear-gradient(to right, #6c5ce7, #00cec9);
+
+  color: white;
+
+  border: none;
+
+  border-radius: 30px;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  display: block;
+
+  margin: 18px auto;
+
+  transition: transform 0.2s, box-shadow 0.3s;
+
+}
+
+button:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+}
+
+/* Keywords grid */
+
+#keywordsOutput {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+  gap: 18px;
+
+  margin-top: 20px;
+
+}
+
+/* Keyword card */
+
+.keyword {
+
+  padding: 14px;
+
+  border-radius: 18px;
+
+  font-weight: 700;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  color: #2d3436;
+
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+
+  transition: transform 0.25s, box-shadow 0.25s;
+
+}
+
+.keyword:hover {
+
+  transform: scale(1.08);
+
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+
+}
+
+/* Points box */
+
+#points {
+
+  margin-top: 30px;
+
+  background: #ffffff;
+
+  padding: 25px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+}
+
+#points p {
+
+  margin: 12px 0;
+
+  line-height: 1.7;
+
+  font-size: 16px;
+
+}
+
+/* Highlight keyword */
+
+.highlight {
+
+  background: #fdcb6e;
+
+  padding: 2px 6px;
+
+  border-radius: 6px;
+
+  font-weight: 700;
+
+}
+
+/* Copy button */
+
+#copyButton {
+
+  max-width: 200px;
+
+  display: none;
+
+}
+
+/* Mobile */
+
+@media (max-width:600px) {
+
+  textarea { font-size: 14px; }
+
+  #points p { font-size: 14px; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Keyword Techniques App</h2>
+
+  <div class="quote">“Large topic ➜ Keywords ➜ Easy learning”</div>
+
+  <textarea id="textInput" placeholder="Paste your paragraph here..."></textarea>
+
+  <button onclick="generateKeywords()">Generate Keywords</button>
+
+  <h3>Top Keywords</h3>
+
+  <div id="keywordsOutput"></div>
+
+  <div id="points"></div>
+
+  <button onclick="copyPoints()" id="copyButton">Copy Points</button>
+
+</div>
+
+<script>
+
+const stopWords = [
+
+  "the","is","are","and","to","of","in","that","this","it","for","on","with","as","by",
+
+  "an","be","or","from","at","a","i","was","which","into","such","then","but","however",
+
+  "also","very","over","above","below","after","before","so","than","these","those",
+
+  "their","they","its","not","has","have","etc"
+
+];
+
+const pastelColors = [
+
+  "#ffeaa7","#fab1a0","#81ecec","#74b9ff","#a29bfe",
+
+  "#55efc4","#fd79a8","#e17055","#dfe6e9","#b2bec3"
+
+];
+
+let keywordMap = {};
+
+function generateKeywords() {
+
+  const text = document.getElementById("textInput").value;
+
+  if(!text.trim()){ alert("Please enter some text!"); return; }
+
+  const lowerText = text.toLowerCase();
+
+  const sentences = text.match(/[^.!?]+[.!?]*\s*/g) || [text];
+
+  keywordMap = {};
+
+  const words = lowerText.replace(/[^a-z ]/g," ").split(" ")
+
+    .filter(w => w.length > 3 && !stopWords.includes(w));
+
+  const freq = {};
+
+  words.forEach(word => freq[word] = (freq[word] || 0) + 1);
+
+  const topKeywords = Object.entries(freq)
+
+    .sort((a,b)=>b[1]-a[1])
+
+    .slice(0,10)
+
+    .map(x=>x[0]);
+
+  topKeywords.forEach(kw=>{
+
+    keywordMap[kw] = sentences.filter(s =>
+
+      s.toLowerCase().includes(kw)
+
+    );
+
+  });
+
+  const outputDiv = document.getElementById("keywordsOutput");
+
+  outputDiv.innerHTML = "";
+
+  document.getElementById("points").innerHTML = "";
+
+  document.getElementById("copyButton").style.display = "none";
+
+  topKeywords.forEach(kw=>{
+
+    const div = document.createElement("div");
+
+    div.className = "keyword";
+
+    div.innerText = kw;
+
+    div.style.background = pastelColors[Math.floor(Math.random()*pastelColors.length)];
+
+    div.onclick = ()=>showPoints(kw);
+
+    outputDiv.appendChild(div);
+
+  });
+
+}
+
+function showPoints(keyword){
+
+  const pointsDiv = document.getElementById("points");
+
+  pointsDiv.innerHTML = `<h4>Points for "${keyword}"</h4>`;
+
+  keywordMap[keyword].forEach(sentence=>{
+
+    const highlighted = sentence.replace(
+
+      new RegExp(`\\b${keyword}\\b`, 'gi'),
+
+      `<span class="highlight">${keyword}</span>`
+
+    );
+
+    const p = document.createElement("p");
+
+    p.innerHTML = "• " + highlighted.trim();
+
+    pointsDiv.appendChild(p);
+
+  });
+
+  document.getElementById("copyButton").style.display = "block";
+
+}
+
+function copyPoints(){
+
+  const text = Array.from(document.querySelectorAll("#points p"))
+
+    .map(p => p.innerText)
+
+    .join("\n");
+
+  navigator.clipboard.writeText(text);
+
+  alert("Points copied successfully!");
+
+}
+
+</script>
+
+</body>
+
+</html>
+    
+  </body>
+  
+</html>
